@@ -1,0 +1,12 @@
+<p>
+  Summary
+</p>
+
+<div *ngFor="let question of questions" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+    <div fxFlex="50%">
+        {{question.text}}
+    </div>
+    <div fxFlex="50%">
+        {{formatAnswer(question)}}
+    </div>
+</div>

@@ -1,0 +1,10 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "https://www.swedbank.lt/shared.css?1558166400000";
+
+input[type="radio"]{
+    position: initial;
+    opacity: initial;
+    display: initial;
+}

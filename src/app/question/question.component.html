@@ -1,0 +1,53 @@
+<form class="dynamic-form" [formGroup]="questionForm">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+        <div fxFlex="100%">
+        <strong>{{activeQuestion.text}}</strong>
+        </div>
+    </div>
+    <br />
+    <div class="questions" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center"
+    *ngFor="let item of activeQuestion.items">
+        <div class="form-label"  fxFlex="50%">
+            <div>{{item.text}}</div>
+        </div>
+        <div fxFlex="50%">
+            <div *ngIf="activeQuestion.type === questionType.Number">
+            <input type="number" formControlName="questionValue" min="0" id="{{item.id}}" [(ngModel)]="answer.value" />
+            </div> 
+            <div *ngIf="activeQuestion.type === questionType.Text">
+                <input type="text" formControlName="questionValue" id="{{item.id}}" [(ngModel)]="answer.value" />
+            </div> 
+            <div *ngIf="activeQuestion.type === questionType.Radio">
+            <div  *ngFor="let valueItem of item.values">
+                {{value}}  <input type="radio" formControlName="questionValue" value="{{valueItem}}"
+                [(ngModel)]="answer.value"/>
+            </div>
+            </div> 
+            <div *ngIf="activeQuestion.type === questionType.Dropdown">
+                <select id="{{item.id}}" formControlName="questionValue" [(ngModel)]="answer.value">
+                    <option [ngValue]="undefined" hidden></option>
+                    <option *ngFor="let valueItem of item.values">{{valueItem}}</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="questionValue.invalid && (questionValue.dirty || questionValue.touched) && questionValue.errors && questionValue.errors.required" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+            <div fxFlex="50%">
+            </div>
+            <div fxFlex="100%">
+                    Please answer the question. 
+                </div>
+        </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+        <div fxFlex="50%">
+            <a *ngIf="step != 1" class="button negative back" (click)="prev()">Previous</a>
+        </div>
+        <div *ngIf="step != maxStepsCount" class="button-right" fxFlex="50%">
+            <a class="button next" (click)="next()">Next</a>
+        </div>
+        <div *ngIf="step == maxStepsCount" class="button-right" fxFlex="50%">
+            <a class="button next" click="summary" (click)="summary()" [routerLink]="['/summary']">Summary</a>
+        </div>
+    </div>
+</form>
